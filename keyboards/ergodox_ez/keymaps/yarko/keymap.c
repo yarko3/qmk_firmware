@@ -14,7 +14,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |---------+------+------+------+------+-------------|           |--------+------+------+------+------+------+--------|
  * |  Tab    |   q  |   w  |   e  |   r  |   t  |  (   |           |    )   |  y   |   u  |   i  |   o  |   p  |   \    |
  * |---------+------+------+------+------+------|      |           |        |------+------+------+------+------+--------|
- * |  Ctrl   |   a  |   s  |   d  |   f  |   g  |------|           |--------|  h   |   j  |   k  |   l  |   ;  |   '"   |
+ * |  Ctrl   |   a  |   s  |   d  |f/MDIA|   g  |------|           |--------|  h   |   j  |   k  |   l  |   ;  |   '"   |
  * |---------+------+------+------+------+------|  [   |           |    ]   |------+------+------+------+------+--------|
  * | LShift  |   z  |   x  |   c  |   v  |   b  |      |           |        |  n   |   m  |   ,  |   .  |  /?  | RShift |
  * `---------+------+------+------+------+-------------'           `---------------+------+------+------+------+--------'
@@ -23,21 +23,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                       ,-------------.           ,---------------.
  *                                       | MOUS |      |           |        |      |
  *                                ,------|------|------|           |--------+------+------.
- *                                | Space|      | LGui |           |  RGui  |      |      |
- *                                | /MDIA| Alt  |------|           |--------| Bspc |Enter |
+ *                                |      |      | LGui |           |  RGui  |      |      |
+ *                                | Space| Alt  |------|           |--------| Bspc |Enter |
  *                                |      |      |  _   |           | Ctrl+a |      |      |
  *                                `--------------------'           `----------------------'
  */
 [BASE] = LAYOUT_ergodox(
   // left hand
-  KC_ESC,   KC_1,    KC_2,   KC_3,   KC_4,             KC_5,     KC_LCBR,
-  KC_TAB,   KC_Q,    KC_W,   KC_E,   KC_R,             KC_T,     KC_LPRN,
-  KC_LCTL,  KC_A,    KC_S,   KC_D,   KC_F,             KC_G,
-  KC_LSFT,  KC_Z,    KC_X,   KC_C,   KC_V,             KC_B,     KC_LBRC,
+  KC_ESC,   KC_1,    KC_2,   KC_3,   KC_4,           KC_5,     KC_LCBR,
+  KC_TAB,   KC_Q,    KC_W,   KC_E,   KC_R,           KC_T,     KC_LPRN,
+  KC_LCTL,  KC_A,    KC_S,   KC_D,   LT(MDIA, KC_F), KC_G,
+  KC_LSFT,  KC_Z,    KC_X,   KC_C,   KC_V,           KC_B,     KC_LBRC,
   MO(MDIA), KC_TILD, KC_GRV, KC_EQL, KC_MINS,
-                                                       MO(MOUS), KC_NO,
-                                                                 KC_LGUI,
-                                     LT(MDIA, KC_SPC), KC_LALT,  KC_UNDS,
+                                                     MO(MOUS), KC_NO,
+                                                               KC_LGUI,
+                                     KC_SPC,         KC_LALT,  KC_UNDS,
 
   // right hand
   KC_RCBR,    KC_6,    KC_7,    KC_8,    KC_9,   KC_0,    KC_DEL,
