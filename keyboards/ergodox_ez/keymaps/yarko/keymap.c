@@ -23,9 +23,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                       ,-------------.           ,---------------.
  *                                       |      |      |           |        |      |
  *                                ,------|------|------|           |--------+------+------.
- *                                |      |      | LGui |           |  RGui  |      |      |
+ *                                |      |      | LGui |           |        |      |      |
  *                                | Space| Alt  |------|           |--------| Bspc |Enter |
- *                                |      |      | MOUS |           |        |      |      |
+ *                                |      |      | MOUS |           |  RGui  |      |      |
  *                                `--------------------'           `----------------------'
  */
 [BASE] = LAYOUT_ergodox(
@@ -46,8 +46,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_RBRC, KC_N,    KC_M,   KC_COMM, KC_DOT, KC_SLSH, KC_RSFT,
                     KC_EQL, KC_PLUS, KC_NO,  KC_NO,   KC_NO,
   KC_NO,   KC_NO,
-  KC_RGUI,
-  KC_NO,   KC_BSPC, KC_ENT
+  KC_NO,
+  KC_RGUI, KC_BSPC, KC_ENT
 ),
 /* Media Keymap
  *
