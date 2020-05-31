@@ -1,10 +1,12 @@
 #include QMK_KEYBOARD_H
 #include "version.h"
+#include "vim_support.h"
 
 // Layers
 #define BASE 0
 #define MDIA 1
 #define MOUS 2
+#define VIM_CMD 3
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Base Keymap
@@ -21,7 +23,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *    |      |      |      |   ~  |   `  |                                         |   =  |   +  |      |      |      |
  *    `----------------------------------'                                         `----------------------------------'
  *                                       ,-------------.           ,---------------.
- *                                       |      |      |           |        |      |
+ *                                       | Vim  |      |           |        |      |
  *                                ,------|------|------|           |--------+------+------.
  *                                |      |      | LGui |           |        |      |      |
  *                                | Space| Alt  |------|           |--------| Bspc |Enter |
@@ -30,14 +32,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [BASE] = LAYOUT_ergodox(
   // left hand
-  KC_ESC,  KC_1,  KC_2,  KC_3,    KC_4,           KC_5,    KC_NO,
-  KC_TAB,  KC_Q,  KC_W,  KC_E,    KC_R,           KC_T,    KC_LPRN,
+  KC_ESC,  KC_1,  KC_2,  KC_3,    KC_4,           KC_5,      KC_NO,
+  KC_TAB,  KC_Q,  KC_W,  KC_E,    KC_R,           KC_T,      KC_LPRN,
   KC_LCTL, KC_A,  KC_S,  KC_D,    LT(MDIA, KC_F), KC_G,
-  KC_LSFT, KC_Z,  KC_X,  KC_C,    KC_V,           KC_B,    KC_LBRC,
+  KC_LSFT, KC_Z,  KC_X,  KC_C,    KC_V,           KC_B,      KC_LBRC,
   KC_NO,   KC_NO, KC_NO, KC_TILD, KC_GRV,
-                                                  KC_NO,   KC_NO,
-                                                           KC_LGUI,
-                                  KC_SPC,         KC_LALT, MO(MOUS),
+                                                  VIM_START, KC_NO,
+                                                             KC_LGUI,
+                                  KC_SPC,         KC_LALT,   MO(MOUS),
 
   // right hand
   KC_NO,   KC_6,    KC_7,   KC_8,    KC_9,   KC_0,    KC_DEL,
@@ -131,7 +133,55 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS,
   KC_TRNS, KC_BTN2, KC_BTN1
 ),
+/* Vim Command Keymap
+ *
+ * ,--------------------------------------------------------.          ,--------------------------------------------------------.
+ * | VIM_ESC |       |       |       |       |       |      |          |      |       |       |       |       |       |         |
+ * |---------+-------+-------+-------+-------+--------------|          |------+-------+-------+-------+-------+-------+---------|
+ * |         |       | VIM_W | VIM_E |       |       |      |          |      | VIM_Y | VIM_U | VIM_I | VIM_O | VIM_P |         |
+ * |---------+-------+-------+-------+-------+-------|      |          |      |-------+-------+-------+-------+-------+---------|
+ * |         | VIM_A |       | VIM_D |       |       |------|          |------| VIM_H | VIM_J | VIM_K | VIM_L |       |         |
+ * |---------+-------+-------+-------+-------+-------|      |          |      |-------+-------+-------+-------+-------+---------|
+ * |VIM_SHIFT|       |       | VIM_C |       | VIM_B |      |          |      |       |       |       |       |       |VIM_SHIFT|
+ * `---------+-------+-------+-------+-------+--------------'          `--------------+-------+-------+-------+-------+---------'
+ *    |      |       |       |       |       |                                        |       |       |       |       |       |
+  *    `-------------------------------------'                                        `---------------------------------------'
+ *                                           ,--------------.          ,--------------.
+ *                                           | BASE  |      |          |      |       |
+ *                                   ,-------|-------|------|          |------+-------+-------.
+ *                                   |       |       |      |          |      |       |       |
+ *                                   |       |       |------|          |------|       |       |
+ *                                   |       |       |      |          |      |       |       |
+ *                                   `----------------------'          `----------------------'
+ */
+[VIM_CMD] = LAYOUT_ergodox(
+  // left hand
+  VIM_ESC,   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,    KC_NO,
+  KC_NO,     KC_NO, VIM_W, VIM_E, KC_NO, KC_NO,    KC_NO,
+  KC_NO,     VIM_A, KC_NO, VIM_D, KC_NO, KC_NO,
+  VIM_SHIFT, KC_NO, KC_NO, VIM_C, KC_NO, VIM_B,    KC_NO,
+  KC_NO,     KC_NO, KC_NO, KC_NO, KC_NO,
+                                         TO(BASE), KC_NO,
+                                                   KC_NO,
+                                  KC_NO, KC_NO,    KC_NO,
+
+  // right hand
+  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+  KC_NO, VIM_Y, VIM_U, VIM_I, VIM_O, VIM_P, KC_NO,
+         VIM_H, VIM_J, VIM_K, VIM_L, KC_NO, KC_NO,
+  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, VIM_SHIFT,
+                KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+  KC_NO, KC_NO,
+  KC_NO,
+  KC_NO, KC_NO, KC_NO
+),
+
 };
+
+// Defines which layer is the Vim command layer.
+uint8_t vim_cmd_layer(void) {
+  return VIM_CMD;
+}
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {};
