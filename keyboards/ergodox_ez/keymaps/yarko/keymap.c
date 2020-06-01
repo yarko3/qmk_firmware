@@ -142,7 +142,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |---------+-------+-------+-------+-------+-------|      |          |      |-------+-------+-------+-------+-------+---------|
  * |         | VIM_A |       | VIM_D |       |       |------|          |------| VIM_H | VIM_J | VIM_K | VIM_L |       |         |
  * |---------+-------+-------+-------+-------+-------|      |          |      |-------+-------+-------+-------+-------+---------|
- * |VIM_SHIFT|       | VIM_X | VIM_C |       | VIM_B |      |          |      |       |       |       |       |       |VIM_SHIFT|
+ * |VIM_SHIFT|       | VIM_X | VIM_C | VIM_V | VIM_B |      |          |      |       |       |       |       |       |VIM_SHIFT|
  * `---------+-------+-------+-------+-------+--------------'          `--------------+-------+-------+-------+-------+---------'
  *    |      |       |       |       |       |                                        |       |       |       |       |       |
   *    `-------------------------------------'                                        `---------------------------------------'
@@ -159,7 +159,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   VIM_ESC,   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,    KC_NO,
   KC_NO,     KC_NO, VIM_W, VIM_E, KC_NO, KC_NO,    KC_NO,
   KC_NO,     VIM_A, KC_NO, VIM_D, KC_NO, KC_NO,
-  VIM_SHIFT, KC_NO, VIM_X, VIM_C, KC_NO, VIM_B,    KC_NO,
+  VIM_SHIFT, KC_NO, VIM_X, VIM_C, VIM_V, VIM_B,    KC_NO,
   KC_NO,     KC_NO, KC_NO, KC_NO, KC_NO,
                                          TO(BASE), KC_NO,
                                                    KC_NO,

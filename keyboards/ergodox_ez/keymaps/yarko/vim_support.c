@@ -488,7 +488,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                             break;
                         case VIM_V:
                             if (SHIFTED) {
-                                CMD(KC_LEFT);
+                                switch (environment) {
+                                    case LINUX: {
+                                        TAP(KC_HOME);
+                                        break;
+                                    }
+                                    case MAC_OS: {
+                                        CMD(KC_LEFT);
+                                        break;
+                                    }
+                                }
                                 SHIFT(KC_DOWN);
                                 vstate = VIM_VS;
                             } else {
@@ -772,7 +781,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                                     break;
                                 }
                             }
-
                             // leave open for key repeat
                             break;
                         case VIM_H:
