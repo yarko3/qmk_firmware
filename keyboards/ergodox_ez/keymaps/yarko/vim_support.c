@@ -659,7 +659,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 break;
               }
               case MAC_OS: {
-                CMD(KC_X);
+                TAP(KC_DEL);
                 break;
               }
             }
@@ -677,7 +677,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
               case MAC_OS: {
                 CMD(KC_LEFT);
                 SHIFT(KC_DOWN);
-                CMD(KC_X);
+                TAP(KC_DEL);
                 break;
               }
             }
@@ -713,7 +713,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                   PRESS(KC_LSHIFT);
                   ALT(KC_RIGHT);
                   RELEASE(KC_LSHIFT);
-                  CMD(KC_X);
+                  TAP(KC_DEL);
                   break;
                 }
               }
@@ -738,7 +738,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                   break;
                 }
                 case MAC_OS: {
-                  CMD(KC_X);
+                  TAP(KC_DEL);
                   break;
                 }
               }
@@ -894,7 +894,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                   break;
                 }
                 case MAC_OS: {
-                  CMD(KC_X);
+                  TAP(KC_DEL);
                   break;
                 }
               }
