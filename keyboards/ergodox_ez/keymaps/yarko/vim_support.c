@@ -42,7 +42,7 @@ static bool yank_was_lines = false;
 static bool SHIFTED = false;
 static uint32_t mod_override_layer_state = 0;
 static uint16_t mod_override_triggering_key = 0;
-const static uint16_t environment = LINUX;
+const static uint16_t environment = MAC_OS;
 
 static void edit(void) { vstate = VIM_START; layer_clear(); }
 #define EDIT edit()
