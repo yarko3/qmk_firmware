@@ -36,10 +36,10 @@ static void ALT(uint16_t keycode) {
 
 uint16_t              vstate                      = VIM_START;
 static bool           yank_was_lines              = false;
-static bool           SHIFTED                     = false;
+static bool           shifted                     = false;
 static uint32_t       mod_override_layer_state    = 0;
 static uint16_t       mod_override_triggering_key = 0;
-const static uint16_t environment                 = MAC_OS;
+const static uint16_t ENVIRONMENT                 = MAC_OS;
 
 static void edit(void) {
     vstate = VIM_START;
@@ -48,7 +48,7 @@ static void edit(void) {
 #define EDIT edit()
 
 static void undo(void) {
-    switch (environment) {
+    switch (ENVIRONMENT) {
         case LINUX: {
             CTRL(KC_Z);
             break;
@@ -62,7 +62,7 @@ static void undo(void) {
 #define UNDO undo()
 
 static void copy(void) {
-    switch (environment) {
+    switch (ENVIRONMENT) {
         case LINUX: {
             CTRL(KC_C);
             break;
@@ -75,10 +75,24 @@ static void copy(void) {
 }
 #define COPY copy()
 
+static void beginning_of_line(void) {
+    switch (ENVIRONMENT) {
+        case LINUX: {
+            TAP(KC_HOME);
+            break;
+        }
+        case MAC_OS: {
+            CMD(KC_LEFT);
+            break;
+        }
+    }
+}
+#define BEGINNING_OF_LINE beginning_of_line()
+
 static void SimpleMovement(uint16_t keycode) {
     switch (keycode) {
         case VIM_B:
-            switch (environment) {
+            switch (ENVIRONMENT) {
                 case LINUX: {
                     PRESS(KC_LCTRL);
                     TAP(KC_LEFT);
@@ -94,7 +108,7 @@ static void SimpleMovement(uint16_t keycode) {
             }
             break;
         case VIM_E:
-            switch (environment) {
+            switch (ENVIRONMENT) {
                 case LINUX: {
                     PRESS(KC_LCTRL);
                     SHIFT(KC_RIGHT);
@@ -113,30 +127,12 @@ static void SimpleMovement(uint16_t keycode) {
             SHIFT(KC_LEFT);
             break;
         case VIM_J:
-            switch (environment) {
-                case LINUX: {
-                    TAP(KC_HOME);
-                    break;
-                }
-                case MAC_OS: {
-                    CMD(KC_LEFT);
-                    break;
-                }
-            }
+            BEGINNING_OF_LINE;
             SHIFT(KC_DOWN);
             SHIFT(KC_DOWN);
             break;
         case VIM_K:
-            switch (environment) {
-                case LINUX: {
-                    TAP(KC_HOME);
-                    break;
-                }
-                case MAC_OS: {
-                    CMD(KC_LEFT);
-                    break;
-                }
-            }
+            BEGINNING_OF_LINE;
             TAP(KC_DOWN);
             SHIFT(KC_UP);
             SHIFT(KC_UP);
@@ -145,7 +141,7 @@ static void SimpleMovement(uint16_t keycode) {
             SHIFT(KC_RIGHT);
             break;
         case VIM_W:
-            switch (environment) {
+            switch (ENVIRONMENT) {
                 case LINUX: {
                     PRESS(KC_LCTRL);
                     SHIFT(KC_RIGHT);  // select to end of this word
@@ -171,7 +167,7 @@ static void SimpleMovement(uint16_t keycode) {
 static void comma_period(uint16_t keycode) {
     switch (keycode) {
         case VIM_COMMA:
-            if (SHIFTED) {
+            if (shifted) {
                 // indent
                 CMD(KC_LBRACKET);
             } else {
@@ -180,7 +176,7 @@ static void comma_period(uint16_t keycode) {
             }
             break;
         case VIM_PERIOD:
-            if (SHIFTED) {
+            if (shifted) {
                 // outdent
                 CMD(KC_RBRACKET);
             }
@@ -216,7 +212,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     if (VIM_START <= keycode && keycode <= VIM_ESC) {
         if (keycode == VIM_SHIFT) {
-            SHIFTED = record->event.pressed;
+            shifted = record->event.pressed;
             return false;
         }
 
@@ -228,7 +224,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
                 // reset state
                 yank_was_lines              = false;
-                SHIFTED                     = false;
+                shifted                     = false;
                 mod_override_layer_state    = 0;
                 mod_override_triggering_key = 0;
 
@@ -241,8 +237,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                          * ground state
                          *****************************/
                         case VIM_A:
-                            if (SHIFTED) {
-                                switch (environment) {
+                            if (shifted) {
+                                switch (ENVIRONMENT) {
                                     case LINUX: {
                                         TAP(KC_END);
                                         break;
@@ -259,7 +255,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                             EDIT;
                             break;
                         case VIM_B:
-                            switch (environment) {
+                            switch (ENVIRONMENT) {
                                 case LINUX: {
                                     PRESS(KC_LCTRL);
                                     PRESS(KC_LEFT);
@@ -273,8 +269,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                             }
                             break;
                         case VIM_C:
-                            if (SHIFTED) {
-                                switch (environment) {
+                            if (shifted) {
+                                switch (ENVIRONMENT) {
                                     case LINUX: {
                                         PRESS(KC_LSHIFT);
                                         TAP(KC_END);
@@ -298,8 +294,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                             }
                             break;
                         case VIM_D:
-                            if (SHIFTED) {
-                                switch (environment) {
+                            if (shifted) {
+                                switch (ENVIRONMENT) {
                                     case LINUX: {
                                         PRESS(KC_LSHIFT);
                                         TAP(KC_END);
@@ -317,7 +313,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                             }
                             break;
                         case VIM_E:
-                            switch (environment) {
+                            switch (ENVIRONMENT) {
                                 case LINUX: {
                                     PRESS(KC_LCTRL);
                                     break;
@@ -330,8 +326,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                             PRESS(KC_RIGHT);
                             break;
                         case VIM_G:
-                            if (SHIFTED) {
-                                switch (environment) {
+                            if (shifted) {
+                                switch (ENVIRONMENT) {
                                     case LINUX: {
                                         CTRL(KC_END);
                                         break;
@@ -349,23 +345,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                             PRESS(KC_LEFT);
                             break;
                         case VIM_I:
-                            if (SHIFTED) {
-                                switch (environment) {
-                                    case LINUX: {
-                                        TAP(KC_HOME);
-                                        break;
-                                    }
-                                    case MAC_OS: {
-                                        CTRL(KC_A);
-                                        break;
-                                    }
-                                }
+                            if (shifted) {
+                                BEGINNING_OF_LINE;
                             }
                             EDIT;
                             break;
                         case VIM_J:
-                            if (SHIFTED) {
-                                switch (environment) {
+                            if (shifted) {
+                                switch (ENVIRONMENT) {
                                     case LINUX: {
                                         TAP(KC_END);
                                         break;
@@ -387,22 +374,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                             PRESS(KC_RIGHT);
                             break;
                         case VIM_O:
-                            if (SHIFTED) {
-                                switch (environment) {
-                                    case LINUX: {
-                                        TAP(KC_HOME);
-                                        break;
-                                    }
-                                    case MAC_OS: {
-                                        CMD(KC_LEFT);
-                                        break;
-                                    }
-                                }
+                            if (shifted) {
+                                BEGINNING_OF_LINE;
                                 TAP(KC_ENTER);
                                 TAP(KC_UP);
                                 EDIT;
                             } else {
-                                switch (environment) {
+                                switch (ENVIRONMENT) {
                                     case LINUX: {
                                         TAP(KC_END);
                                         break;
@@ -417,22 +395,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                             }
                             break;
                         case VIM_P:
-                            if (SHIFTED) {
-                                switch (environment) {
+                            if (shifted) {
+                                BEGINNING_OF_LINE;
+                                switch (ENVIRONMENT) {
                                     case LINUX: {
-                                        TAP(KC_HOME);
                                         CTRL(KC_V);
                                         break;
                                     }
                                     case MAC_OS: {
-                                        CMD(KC_LEFT);
                                         CMD(KC_V);
                                         break;
                                     }
                                 }
                             } else {
                                 if (yank_was_lines) {
-                                    switch (environment) {
+                                    switch (ENVIRONMENT) {
                                         case LINUX: {
                                             TAP(KC_END);
                                             TAP(KC_RIGHT);
@@ -447,7 +424,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                                         }
                                     }
                                 } else {
-                                    switch (environment) {
+                                    switch (ENVIRONMENT) {
                                         case LINUX: {
                                             CTRL(KC_V);
                                             break;
@@ -461,7 +438,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                             }
                             break;
                         case VIM_R:
-                            switch (environment) {
+                            switch (ENVIRONMENT) {
                                 case LINUX: {
                                     CTRL(KC_Y);
                                     break;
@@ -476,7 +453,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                             break;
                         case VIM_S:
                             // s for substitute?
-                            if (SHIFTED) {
+                            if (shifted) {
                                 CMD(KC_LEFT);
                                 PRESS(KC_LSHIFT);
                                 CMD(KC_RIGHT);
@@ -495,17 +472,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                             UNDO;
                             break;
                         case VIM_V:
-                            if (SHIFTED) {
-                                switch (environment) {
-                                    case LINUX: {
-                                        TAP(KC_HOME);
-                                        break;
-                                    }
-                                    case MAC_OS: {
-                                        CMD(KC_LEFT);
-                                        break;
-                                    }
-                                }
+                            if (shifted) {
+                                BEGINNING_OF_LINE;
                                 SHIFT(KC_DOWN);
                                 vstate = VIM_VS;
                             } else {
@@ -513,7 +481,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                             }
                             break;
                         case VIM_W:
-                            switch (environment) {
+                            switch (ENVIRONMENT) {
                                 case LINUX: {
                                     PRESS(KC_LCTRL);
                                     TAP(KC_RIGHT);
@@ -536,17 +504,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                             PRESS(KC_DEL);
                             break;
                         case VIM_Y:
-                            if (SHIFTED) {
-                                switch (environment) {
-                                    case LINUX: {
-                                        TAP(KC_HOME);
-                                        break;
-                                    }
-                                    case MAC_OS: {
-                                        CMD(KC_LEFT);
-                                        break;
-                                    }
-                                }
+                            if (shifted) {
+                                BEGINNING_OF_LINE;
                                 SHIFT(KC_DOWN);
                                 COPY;
                                 TAP(KC_RIGHT);
@@ -574,7 +533,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         case VIM_L:
                         case VIM_W:
                             SimpleMovement(keycode);
-                            switch (environment) {
+                            switch (ENVIRONMENT) {
                                 case LINUX: {
                                     CTRL(KC_X);
                                     break;
@@ -589,9 +548,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                             break;
 
                         case VIM_C:
-                            switch (environment) {
+                            BEGINNING_OF_LINE;
+                            switch (ENVIRONMENT) {
                                 case LINUX: {
-                                    TAP(KC_HOME);
                                     PRESS(KC_LSHIFT);
                                     TAP(KC_END);
                                     RELEASE(KC_LSHIFT);
@@ -599,7 +558,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                                     break;
                                 }
                                 case MAC_OS: {
-                                    CMD(KC_LEFT);
                                     PRESS(KC_LSHIFT);
                                     CMD(KC_RIGHT);
                                     RELEASE(KC_LSHIFT);
@@ -626,7 +584,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                      *****************************/
                     switch (keycode) {
                         case VIM_W:
-                            switch (environment) {
+                            switch (ENVIRONMENT) {
                                 case LINUX: {
                                     CTRL(KC_LEFT);
                                     PRESS(KC_LSHIFT);
@@ -665,7 +623,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         case VIM_L:
                         case VIM_W:
                             SimpleMovement(keycode);
-                            switch (environment) {
+                            switch (ENVIRONMENT) {
                                 case LINUX: {
                                     CTRL(KC_X);
                                     break;
@@ -679,15 +637,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                             vstate         = VIM_START;
                             break;
                         case VIM_D:
-                            switch (environment) {
+                            BEGINNING_OF_LINE;
+                            switch (ENVIRONMENT) {
                                 case LINUX: {
-                                    TAP(KC_HOME);
                                     SHIFT(KC_DOWN);
                                     CTRL(KC_X);
                                     break;
                                 }
                                 case MAC_OS: {
-                                    CMD(KC_LEFT);
                                     SHIFT(KC_DOWN);
                                     TAP(KC_DEL);
                                     break;
@@ -711,7 +668,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                      *****************************/
                     switch (keycode) {
                         case VIM_W:
-                            switch (environment) {
+                            switch (ENVIRONMENT) {
                                 case LINUX: {
                                     CTRL(KC_LEFT);
                                     PRESS(KC_LSHIFT);
@@ -744,7 +701,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     switch (keycode) {
                         case VIM_D:
                         case VIM_X:
-                            switch (environment) {
+                            switch (ENVIRONMENT) {
                                 case LINUX: {
                                     CTRL(KC_X);
                                     break;
@@ -758,7 +715,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                             vstate         = VIM_START;
                             break;
                         case VIM_B:
-                            switch (environment) {
+                            switch (ENVIRONMENT) {
                                 case LINUX: {
                                     PRESS(KC_LCTRL);
                                     PRESS(KC_LSHIFT);
@@ -775,7 +732,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                             // leave open for key repeat
                             break;
                         case VIM_E:
-                            switch (environment) {
+                            switch (ENVIRONMENT) {
                                 case LINUX: {
                                     PRESS(KC_LCTRL);
                                     PRESS(KC_LSHIFT);
@@ -811,7 +768,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                             PRESS(KC_RIGHT);
                             break;
                         case VIM_W:
-                            switch (environment) {
+                            switch (ENVIRONMENT) {
                                 case LINUX: {
                                     PRESS(KC_LCTRL);
                                     SHIFT(KC_RIGHT);  // select to end of this word
@@ -831,7 +788,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                             }
                             break;
                         case VIM_P:
-                            switch (environment) {
+                            switch (ENVIRONMENT) {
                                 case LINUX: {
                                     CTRL(KC_V);
                                     break;
@@ -869,7 +826,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                      *****************************/
                     switch (keycode) {
                         case VIM_W:
-                            switch (environment) {
+                            switch (ENVIRONMENT) {
                                 case LINUX: {
                                     CTRL(KC_LEFT);
                                     PRESS(KC_LSHIFT);
@@ -899,7 +856,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     switch (keycode) {
                         case VIM_D:
                         case VIM_X:
-                            switch (environment) {
+                            switch (ENVIRONMENT) {
                                 case LINUX: {
                                     CTRL(KC_X);
                                     break;
@@ -927,7 +884,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                             vstate = VIM_START;
                             break;
                         case VIM_P:
-                            switch (environment) {
+                            switch (ENVIRONMENT) {
                                 case LINUX: {
                                     CTRL(KC_V);
                                     break;
@@ -959,7 +916,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                      *****************************/
                     switch (keycode) {
                         case VIM_G:
-                            switch (environment) {
+                            switch (ENVIRONMENT) {
                                 case LINUX: {
                                     CTRL(KC_HOME);
                                     break;
@@ -994,16 +951,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                             yank_was_lines = false;
                             break;
                         case VIM_Y:
-                            switch (environment) {
-                                case LINUX: {
-                                    TAP(KC_HOME);
-                                    break;
-                                }
-                                case MAC_OS: {
-                                    CMD(KC_LEFT);
-                                    break;
-                                }
-                            }
+                            BEGINNING_OF_LINE;
                             SHIFT(KC_DOWN);
                             COPY;
                             TAP(KC_RIGHT);
