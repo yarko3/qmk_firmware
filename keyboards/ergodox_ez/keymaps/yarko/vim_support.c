@@ -464,7 +464,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                             }
                             break;
                         case VIM_X:
-                            CUT;
+                            TAP(K_DEL);
                             break;
                         case VIM_Y:
                             if (shifted) {
