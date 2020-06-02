@@ -311,15 +311,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                             switch (ENVIRONMENT) {
                                 case LINUX: {
                                     PRESS(KC_LCTRL);
-                                    PRESS(KC_LEFT);
                                     break;
                                 }
                                 case MAC_OS: {
                                     PRESS(KC_LALT);
-                                    PRESS(KC_LEFT);
                                     break;
                                 }
                             }
+                            PRESS(KC_LEFT);
                             break;
                         case VIM_C:
                             if (shifted) {
