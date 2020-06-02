@@ -131,6 +131,26 @@ static void end_of_line(void) {
 }
 #define END_OF_LINE end_of_line()
 
+static void select_inner_word(void) {
+    switch (ENVIRONMENT) {
+        case LINUX: {
+            CTRL(KC_LEFT);
+            PRESS(KC_LSHIFT);
+            CTRL(KC_RIGHT);
+            RELEASE(KC_LSHIFT);
+            break;
+        }
+        case MAC_OS: {
+            ALT(KC_LEFT);
+            PRESS(KC_LSHIFT);
+            ALT(KC_RIGHT);
+            RELEASE(KC_LSHIFT);
+            break;
+        }
+    }
+}
+#define SELECT_INNER_WORD select_inner_word()
+
 static void SimpleMovement(uint16_t keycode) {
     switch (keycode) {
         case VIM_B:
@@ -526,23 +546,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                      *****************************/
                     switch (keycode) {
                         case VIM_W:
-                            switch (ENVIRONMENT) {
-                                case LINUX: {
-                                    CTRL(KC_LEFT);
-                                    PRESS(KC_LSHIFT);
-                                    CTRL(KC_RIGHT);
-                                    RELEASE(KC_LSHIFT);
-                                    break;
-                                }
-                                case MAC_OS: {
-                                    ALT(KC_LEFT);
-                                    PRESS(KC_LSHIFT);
-                                    ALT(KC_RIGHT);
-                                    RELEASE(KC_LSHIFT);
-                                    break;
-                                }
-                            }
-
+                            SELECT_INNER_WORD;
                             CUT;
                             yank_was_lines = false;
                             EDIT;
@@ -585,28 +589,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     break;
                 case VIM_DI:
                     /*****************************
-                     * ci-  ...delete a word... FROM THE INSIDE!
+                     * di-  ...delete a word... FROM THE INSIDE!
                      *****************************/
                     switch (keycode) {
                         case VIM_W:
-                            switch (ENVIRONMENT) {
-                                case LINUX: {
-                                    CTRL(KC_LEFT);
-                                    PRESS(KC_LSHIFT);
-                                    CTRL(KC_RIGHT);
-                                    RELEASE(KC_LSHIFT);
-                                    break;
-                                }
-                                case MAC_OS: {
-                                    ALT(KC_LEFT);
-                                    PRESS(KC_LSHIFT);
-                                    ALT(KC_RIGHT);
-                                    RELEASE(KC_LSHIFT);
-                                    break;
-                                }
-                            }
+                            SELECT_INNER_WORD;
                             CUT;
-
                             yank_was_lines = false;
                             vstate         = VIM_START;
                         default:
@@ -728,22 +716,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                      *****************************/
                     switch (keycode) {
                         case VIM_W:
-                            switch (ENVIRONMENT) {
-                                case LINUX: {
-                                    CTRL(KC_LEFT);
-                                    PRESS(KC_LSHIFT);
-                                    CTRL(KC_RIGHT);
-                                    RELEASE(KC_LSHIFT);
-                                    break;
-                                }
-                                case MAC_OS: {
-                                    ALT(KC_LEFT);
-                                    PRESS(KC_LSHIFT);
-                                    ALT(KC_RIGHT);
-                                    RELEASE(KC_LSHIFT);
-                                    break;
-                                }
-                            }
+                            SELECT_INNER_WORD;
                             vstate = VIM_V;
                         default:
                             // ignore
