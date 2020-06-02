@@ -457,10 +457,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                             if (shifted) {
                                 BEGINNING_OF_LINE;
                                 SHIFT(KC_DOWN);
-                                vstate = VIM_VS;
-                            } else {
-                                vstate = VIM_V;
                             }
+                            vstate = VIM_V;
                             break;
                         case VIM_W:
                             switch (ENVIRONMENT) {
@@ -645,6 +643,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                                 }
                             }
                             // leave open for key repeat
+                            break;
+                        case VIM_C:
+                            CUT;
+                            EDIT;
                             break;
                         case VIM_H:
                             PRESS(KC_LSHIFT);
