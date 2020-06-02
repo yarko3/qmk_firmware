@@ -460,6 +460,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                                 }
                             }
                             break;
+                        case VIM_R:
+                            switch (environment) {
+                                case LINUX: {
+                                    CTRL(KC_Y);
+                                    break;
+                                }
+                                case MAC_OS: {
+                                    PRESS(KC_LSHIFT);
+                                    UNDO;
+                                    RELEASE(KC_LSHIFT);
+                                    break;
+                                }
+                            }
+                            break;
                         case VIM_S:
                             // s for substitute?
                             if (SHIFTED) {
@@ -478,13 +492,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                             }
                             break;
                         case VIM_U:
-                            if (SHIFTED) {
-                                PRESS(KC_LSHIFT);
-                                UNDO;
-                                RELEASE(KC_LSHIFT);
-                            } else {
-                                UNDO;
-                            }
+                            UNDO;
                             break;
                         case VIM_V:
                             if (SHIFTED) {

@@ -23,6 +23,7 @@ enum VimKeycodes {
     VIM_L,
     VIM_O,
     VIM_P,
+    VIM_R,
     VIM_S,
     VIM_U,
     VIM_V,
