@@ -136,7 +136,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Vim Command Keymap
  *
  * ,--------------------------------------------------------.          ,--------------------------------------------------------.
- * | VIM_ESC |       |       |       |       |       |      |          |      |       |       |       |       |       |         |
+ * | VIM_ESC |       |       |       | VIM_4 |       |      |          |      |       |       |       |       | VIM_0 |         |
  * |---------+-------+-------+-------+-------+--------------|          |------+-------+-------+-------+-------+-------+---------|
  * |         |       | VIM_W | VIM_E | VIM_R |       |      |          |      | VIM_Y | VIM_U | VIM_I | VIM_O | VIM_P |         |
  * |---------+-------+-------+-------+-------+-------|      |          |      |-------+-------+-------+-------+-------+---------|
@@ -156,7 +156,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [VIM_CMD] = LAYOUT_ergodox(
   // left hand
-  VIM_ESC,   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,    KC_NO,
+  VIM_ESC,   KC_NO, KC_NO, KC_NO, VIM_4, KC_NO,    KC_NO,
   KC_NO,     KC_NO, VIM_W, VIM_E, VIM_R, KC_NO,    KC_NO,
   KC_NO,     VIM_A, KC_NO, VIM_D, KC_NO, KC_NO,
   VIM_SHIFT, KC_NO, VIM_X, VIM_C, VIM_V, VIM_B,    KC_NO,
@@ -166,7 +166,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                   KC_NO, KC_NO,    KC_NO,
 
   // right hand
-  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, VIM_0, KC_NO,
   KC_NO, VIM_Y, VIM_U, VIM_I, VIM_O, VIM_P, KC_NO,
          VIM_H, VIM_J, VIM_K, VIM_L, KC_NO, KC_NO,
   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, VIM_SHIFT,

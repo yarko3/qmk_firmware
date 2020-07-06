@@ -32,6 +32,8 @@ enum VimKeycodes {
     VIM_W,
     VIM_X,
     VIM_Y,
+    VIM_0,
+    VIM_4,
     VIM_PERIOD,     // to support indent/outdent
     VIM_COMMA,      // and toggle comments
     VIM_SHIFT,      // avoid side-effect of supporting real shift.

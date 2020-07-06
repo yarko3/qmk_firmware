@@ -498,6 +498,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         case VIM_PERIOD:
                             comma_period(keycode);
                             break;
+                        case VIM_0:
+                            BEGINNING_OF_LINE;
+                            break;
+                        case VIM_4:
+                            if (shifted) {
+                              END_OF_LINE;
+                            }
+                            break;
                     }
                     break;
                 case VIM_C:
