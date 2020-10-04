@@ -4,10 +4,10 @@
 
 // Layers
 #define BASE 0
-#define MDIA 1
-#define MOUS 2
-#define VIM_CMD 3
-#define VIM_INS 4
+#define VIM_CMD 1
+#define VIM_INS 2
+#define MDIA 3
+#define MOUS 4
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Base Keymap
@@ -52,88 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_NO,
   KC_RGUI, KC_BSPC, KC_ENT
 ),
-/* Media Keymap
- *
- * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |        |  F1  |  F2  |  F3  |  F4  |  F5  |      |           |      |  F6  |  F7  |  F8  |  F9  |  F10 |   F11  |
- * |--------+------+------+------+------+------+------|           |------+------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |           |      | Prev | Play | VIM  | Next |      |   F12  |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |------|           |------|   ←  |   ↓  |   ↑  |   →  |      |        |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |           |      | VolD |      | Mute | VolU |      |        |
- * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      |      |      |      |      |                                       |      |      |      |      |      |
- *   `----------------------------------'                                       `----------------------------------'
- *                                      ,-------------.           ,-------------.
- *                                      |      |      |           |      |      |
- *                               ,------|------|------|           |------+------+------.
- *                               |      |      |      |           |      |      |      |
- *                               |  _   |  {   |------|           |------|  }   |  -   |
- *                               |      |      |      |           |      |      |      |
- *                               `--------------------'           `--------------------'
- */
-[MDIA] = LAYOUT_ergodox(
-  // left hand
-  KC_TRNS, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                                               KC_TRNS, KC_TRNS,
-                                                        KC_TRNS,
-                                      KC_UNDS, KC_LCBR, KC_TRNS,
-  // right hand
-  KC_TRNS, KC_F6,   KC_F7,   KC_F8,     KC_F9,    KC_F10,  KC_F11,
-  KC_TRNS, KC_MPRV, KC_MPLY, VIM_START, KC_MNXT,  KC_TRNS, KC_F12,
-           KC_LEFT, KC_DOWN, KC_UP,     KC_RIGHT, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_VOLD, KC_TRNS, KC_MUTE,   KC_VOLU,  KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS,
-  KC_TRNS, KC_TRNS,
-  KC_TRNS,
-  KC_TRNS, KC_RCBR, KC_MINS
-),
-/* Mouse Keymap
- *
- * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
- * |--------+------+------+------+------+------+------|           |------+------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |------|           |------|MsLeft|MsDown| MsUp |MsRght|      |        |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |           |      |WhLeft|WhDown| WhUp |WhRght|      |        |
- * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      |      |      |      |      |                                       |      |      |      |      |      |
- *   `----------------------------------'                                       `----------------------------------'
- *                                      ,-------------.           ,-------------.
- *                                      |      |      |           |      |      |
- *                               ,------|------|------|           |------+------+------.
- *                               |      |      |      |           |      |      |      |
- *                               |      |      |------|           |------| Rclk | Lclk |
- *                               |      |      |      |           |      |      |      |
- *                               `--------------------'           `--------------------'
- */
-[MOUS] = LAYOUT_ergodox(
-  // left hand
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                                               KC_TRNS, KC_TRNS,
-                                                        KC_TRNS,
-                                      KC_TRNS, KC_TRNS, KC_TRNS,
-  // right hand
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-           KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS,
-  KC_TRNS,
-  KC_TRNS, KC_BTN2, KC_BTN1
-),
+
 /* Vim Command Keymap
  *
  * ,--------------------------------------------------------.          ,--------------------------------------------------------.
@@ -165,7 +84,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                          TO(BASE), KC_NO,
                                                    KC_NO,
                                   KC_NO, KC_NO,    KC_NO,
-
   // right hand
   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, VIM_0, KC_NO,
   KC_NO, VIM_Y, VIM_U, VIM_I, VIM_O, VIM_P, KC_NO,
@@ -208,7 +126,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                       KC_NO,   KC_NO,
                                                                KC_LGUI,
                                       KC_SPC,         KC_LALT, MO(MOUS),
-
   // right hand
   KC_NO,   KC_6,    KC_7,   KC_8,    KC_9,   KC_0,    KC_DEL,
   KC_RPRN, KC_Y,    KC_U,   KC_I,    KC_O,   KC_P,    KC_BSLS,
@@ -218,6 +135,90 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_NO,   KC_NO,
   KC_NO,
   KC_RGUI, KC_BSPC, KC_ENT
+),
+
+/* Media Keymap
+ *
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * |        |  F1  |  F2  |  F3  |  F4  |  F5  |      |           |      |  F6  |  F7  |  F8  |  F9  |  F10 |   F11  |
+ * |--------+------+------+------+------+------+------|           |------+------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |      |           |      | Prev | Play | VIM  | Next |      |   F12  |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |------|           |------|   ←  |   ↓  |   ↑  |   →  |      |        |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |      |           |      | VolD |      | Mute | VolU |      |        |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |      |      |      |      |      |                                       |      |      |      |      |      |
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                      ,-------------.           ,-------------.
+ *                                      |      |      |           |      |      |
+ *                               ,------|------|------|           |------+------+------.
+ *                               |      |      |      |           |      |      |      |
+ *                               |  _   |  {   |------|           |------|  }   |  -   |
+ *                               |      |      |      |           |      |      |      |
+ *                               `--------------------'           `--------------------'
+ */
+[MDIA] = LAYOUT_ergodox(
+  // left hand
+  KC_TRNS, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+                                               KC_TRNS, KC_TRNS,
+                                                        KC_TRNS,
+                                      KC_UNDS, KC_LCBR, KC_TRNS,
+  // right hand
+  KC_TRNS, KC_F6,   KC_F7,   KC_F8,     KC_F9,    KC_F10,  KC_F11,
+  KC_TRNS, KC_MPRV, KC_MPLY, VIM_START, KC_MNXT,  KC_TRNS, KC_F12,
+           KC_LEFT, KC_DOWN, KC_UP,     KC_RIGHT, KC_TRNS, KC_TRNS,
+  KC_TRNS, KC_VOLD, KC_TRNS, KC_MUTE,   KC_VOLU,  KC_TRNS, KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS,
+  KC_TRNS, KC_TRNS,
+  KC_TRNS,
+  KC_TRNS, KC_RCBR, KC_MINS
+),
+
+/* Mouse Keymap
+ *
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |--------+------+------+------+------+------+------|           |------+------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |------|           |------|MsLeft|MsDown| MsUp |MsRght|      |        |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |      |           |      |WhLeft|WhDown| WhUp |WhRght|      |        |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |      |      |      |      |      |                                       |      |      |      |      |      |
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                      ,-------------.           ,-------------.
+ *                                      |      |      |           |      |      |
+ *                               ,------|------|------|           |------+------+------.
+ *                               |      |      |      |           |      |      |      |
+ *                               |      |      |------|           |------| Rclk | Lclk |
+ *                               |      |      |      |           |      |      |      |
+ *                               `--------------------'           `--------------------'
+ */
+[MOUS] = LAYOUT_ergodox(
+  // left hand
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+                                               KC_TRNS, KC_TRNS,
+                                                        KC_TRNS,
+                                      KC_TRNS, KC_TRNS, KC_TRNS,
+  // right hand
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+           KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_TRNS, KC_TRNS,
+  KC_TRNS, KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, KC_TRNS, KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+  KC_TRNS, KC_TRNS,
+  KC_TRNS,
+  KC_TRNS, KC_BTN2, KC_BTN1
 ),
 
 };
