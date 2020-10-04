@@ -41,8 +41,9 @@ enum VimKeycodes {
     VIM_SAFE_RANGE  // start other keycodes here.
 };
 
-// NOTE: YOU MUST DEFINE THIS
+// NOTE: YOU MUST DEFINE THESE
 extern uint8_t vim_cmd_layer(void);
+extern uint8_t vim_ins_layer(void);
 
 extern uint16_t vstate;
 
