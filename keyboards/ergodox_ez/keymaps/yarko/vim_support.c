@@ -43,7 +43,7 @@ const static uint16_t ENVIRONMENT                 = MAC_OS;
 
 static void edit(void) {
     vstate = VIM_START;
-    layer_clear();
+    layer_on(vim_ins_layer());
 }
 #define EDIT edit()
 
